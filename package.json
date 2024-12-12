@@ -11,6 +11,9 @@
     "ios-pods": "cd ios && RCT_NEW_ARCH_ENABLED=0 bundle exec pod install && cd .."
   },
   "dependencies": {
+    "mobx": "^6.13.5",
+    "mobx-react": "^9.2.0",
+    "mobx-state-tree": "^7.0.0",
     "react": "18.3.1",
     "react-native": "0.76.5",
     "react-native-code-push": "^9.0.0"

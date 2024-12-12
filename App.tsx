@@ -16,6 +16,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import codePush from 'react-native-code-push';
 
 import {
   Colors,
@@ -115,4 +116,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+const AppWithCodePush = codePush(App);
+
+export default AppWithCodePush;

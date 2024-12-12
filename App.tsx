@@ -174,6 +174,14 @@ const IssueDemo = observer(() => {
             }}
           />
 
+          <Button
+            title="codePush.clearUpdates"
+            onPress={() => {
+              codePush.clearUpdates();
+              Alert.alert('Updates cleared', 'Restart the app');
+            }}
+          />
+
           <View style={styles.spacer} />
 
           <View style={styles.section}>

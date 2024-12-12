@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ReproCodepushBuildIssue</string>
+  <string name="app_name">ReproCodepushBuildIssue</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">iosy0cNwLuPpTZ81-4UxZCyBun8R_AnqqFUOSM</string>
 </resources>

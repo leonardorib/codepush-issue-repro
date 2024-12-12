@@ -26,6 +26,13 @@ const Store = t
     },
   }))
   .actions(self => ({
+    /**
+     * This is the base demonstration of the issue
+     * If the some error is thrown in the `try` block, leading to
+     * `catch` being reached and we return anything from `catch` (in this case `null`)
+     * then we lose the reference to `self` in the `finally` block
+     * This only happens in CodePush bundles
+     */
     demonstrateIssueExecutingAction: (): void | null => {
       try {
         self.setSomeProp('demonstrateIssue try block');
@@ -35,6 +42,7 @@ const Store = t
         return null;
       } finally {
         try {
+          // This line will error out in CodePush bundles with `TypeError: undefined is not a function`
           self.setSomeProp('demonstrateIssue finally block');
         } catch (error: any) {
           console.error(error);
@@ -43,6 +51,9 @@ const Store = t
       }
     },
 
+    /**
+     * A variation of the issue demonstrated in the previous function
+     */
     demonstrateIssueInDirectMutation: (): void | null => {
       try {
         self.setSomeProp('demonstrateIssueInDirectMutation try block');
@@ -52,6 +63,8 @@ const Store = t
         return null;
       } finally {
         try {
+          // This will not error out. But the property value will not get updated as it should
+          // And again, only happens in CodePush bundles.
           self.someProp = 'demonstrateIssueInDirectMutation finally block';
         } catch (error: any) {
           console.error(error);
@@ -63,6 +76,10 @@ const Store = t
       }
     },
 
+    /**
+     * This is a workaround for the issue
+     * We store a reference to `self` in a variable and use that in the `finally` block
+     */
     demonstrateWorkaround: (): void | null => {
       const selfRef = self;
       try {
@@ -73,6 +90,7 @@ const Store = t
         return null;
       } finally {
         try {
+          // This will work properly even in CodePush bundles
           selfRef.setSomeProp('demonstrateWorkaround finally block');
         } catch (error: any) {
           console.error(error);
@@ -107,7 +125,8 @@ const IssueDemo = observer(() => {
               store.demonstrateIssueInDirectMutation();
 
               // In this case, the code in the finally block doesn't error out
-              // but the property is not set to the expected value
+              // but the property is not set to the expected value.
+              // So we check here to determine if the update was successful
               const expectedValue =
                 'demonstrateIssueInDirectMutation finally block';
               if (store.someProp !== expectedValue) {

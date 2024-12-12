@@ -8,7 +8,13 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "ios-pods": "cd ios && RCT_NEW_ARCH_ENABLED=0 bundle exec pod install && cd .."
+    "ios-pods": "cd ios && RCT_NEW_ARCH_ENABLED=0 bundle exec pod install && cd ..",
+    "release-ios": "npx react-native run-ios --simulator \"iPhone 16 Plus\" --mode \"Release\"",
+    "codepush-deploy-ios": "npx appcenter codepush release-react --mandatory --app leonardorib/ReproCodepushBuildIssueIOS  --deployment-name Test",
+    "codepush-clear-ios": "npx appcenter codepush deployment clear -a leonardorib/ReproCodepushBuildIssueIOS Test",
+    "release-android": "npx react-native run-android --mode \"Release\"",
+    "codepush-deploy-android": "npx appcenter codepush release-react --mandatory --app leonardorib/ReproCodepushBuildIssueAndroid  --deployment-name Test",
+    "codepush-clear-android": "npx appcenter codepush deployment clear -a leonardorib/ReproCodepushBuildIssueAndroid Test"
   },
   "dependencies": {
     "mobx": "^6.13.5",
